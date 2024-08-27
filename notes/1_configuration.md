@@ -48,4 +48,14 @@ E então, rodamos task __alias__ para rodar aquele comando
 
     eg.: task run
 
-parei na escrita do primeiro teste
+### Testes
+
+Para escrever o teste, criamos sempre um arquivo dentro da pasta _tests_.
+
+Por convenção, os arquivos sempre tem o prefixo_test_[...].py_
+
+Criamos um cliente de teste do fastapi usando o objeto
+
+    TestClient, importado de fastapi.testclient
+
+    client = TestClient(app)
