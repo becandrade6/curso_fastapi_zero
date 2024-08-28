@@ -52,10 +52,40 @@ E então, rodamos task __alias__ para rodar aquele comando
 
 Para escrever o teste, criamos sempre um arquivo dentro da pasta _tests_.
 
-Por convenção, os arquivos sempre tem o prefixo_test_[...].py_
+Por convenção, os arquivos sempre tem o prefixo _test__[...]_.py_
 
 Criamos um cliente de teste do fastapi usando o objeto
 
     TestClient, importado de fastapi.testclient
 
     client = TestClient(app)
+
+A estrutura de um teste, costuma contar com 3 ou 4 fases importantes (estrutura AAA):
+
+- Organizar (Arrange): organizar o terreno
+- Agir (Act): executar a ação
+- Afirmar (Assert): garanta/afirme que isso igual a isso
+- teardown: quando precisa desorganizar para testar outra coisa
+
+No exemplo final do arquivo _test__app.py_ temos comentado o que faz parte de cada etapa
+
+### Ferramentas extras
+
+- Utilizamos o _ignr_ para gerar o arquivo gitignore para o nosso projeto do python, rodando (chama e armazena no arquivo passado)
+
+        ignr -p python > .gitignore
+    
+- Inicializamos um repositorio na pasta
+
+        git init.
+    
+    E fizemos o primeiro commit
+
+        git add .
+        git commit -m "Mensagem de commit"
+    
+    E adicionamos ele no nosso github, usando o gh
+
+        gh repo create
+    
+    
