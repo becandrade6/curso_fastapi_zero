@@ -18,7 +18,7 @@ def test_root_must_return_ok_and_ola_mundo():
     # colocando os codigos 200, 300, etc...
     assert response_home.status_code == HTTPStatus.OK  # Assert
     # Obtemos a resposta do .get no .json() do objeto
-    assert response_home.json() == 'Olá Mundo!'        # Assert
+    assert response_home.json() == {'message':'Olá Mundo!'}  # Assert
 
     assert response_root.status_code == HTTPStatus.OK         # Assert
     assert response_root.json() == {'message': 'Olá Fogão!'}  # Assert
