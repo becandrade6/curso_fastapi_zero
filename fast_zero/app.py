@@ -1,9 +1,9 @@
 from http import HTTPStatus
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 # Ao importar esse contrato e utiliza-lo, ja documenta e faz a validação
-from fast_zero.schemas import Message, UserDB, UserPublic, UserSchema
+from fast_zero.schemas import Message, UserDB, UserList, UserPublic, UserSchema
 
 app = FastAPI()
 
@@ -37,3 +37,35 @@ def create_user(user: UserSchema):
     database.append(user_with_id)
 
     return user_with_id
+
+
+@app.get('/users/', response_model=UserList)
+def read_users():
+    return {'users': database}
+
+
+# {user_id} cria uma "variavel" na url. Ou seja, é passada na url da requisição
+# user_id: int -> diz que esse valor vai ser validado como inteiro
+@app.put('/users/{user_id}', response_model=UserPublic)
+def update_user(user_id: int, user: UserSchema):
+    if user_id < 1 or user_id > len(database):
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found'
+        )
+    # Cria novo user a partir do parametro passado e id da variavel de entrada
+    user_with_id = UserDB(id=user_id, **user.model_dump())
+    database[user_id - 1] = user_with_id  # Armazena no index do antigo
+
+    return user_with_id
+
+
+@app.delete('/users/{user_id}', response_model=Message)
+def delete_user(user_id: int):
+    if user_id < 1 or user_id > len(database):
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found'
+        )
+
+    del database[user_id - 1]
+
+    return {'message': 'User deleted!'}

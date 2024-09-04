@@ -20,3 +20,8 @@ class UserPublic(BaseModel):
 # Classe provisória para simular db a partir do userSchema
 class UserDB(UserSchema):
     id: int
+
+
+# Schema para retornar lista de usuários do DB mas sem a senha
+class UserList(BaseModel):
+    users: list[UserPublic]
