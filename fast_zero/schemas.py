@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class Message(BaseModel):
@@ -15,11 +15,10 @@ class UserPublic(BaseModel):
     id: int
     username: str
     email: EmailStr
-
-
-# Classe provisória para simular db a partir do userSchema
-class UserDB(UserSchema):
-    id: int
+    # Vai tentar achar os atributos que tem os atributos do schema e construir
+    # modelo do pydantic quando tentamos converter objeto do
+    # sqlalchemy pro schema
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Schema para retornar lista de usuários do DB mas sem a senha
