@@ -24,3 +24,12 @@ class UserPublic(BaseModel):
 # Schema para retornar lista de usuários do DB mas sem a senha
 class UserList(BaseModel):
     users: list[UserPublic]
+
+
+class Token(BaseModel):
+    access_token: str  # O token JWT que vamos gerar
+    token_type: str  # 'Como usar' o token
+
+
+class TokenData(BaseModel):
+    username: str | None = None
