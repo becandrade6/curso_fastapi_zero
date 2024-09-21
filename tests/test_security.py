@@ -36,3 +36,17 @@ def test_user_not_found(client, user):
 
     assert response.status_code == HTTPStatus.UNAUTHORIZED
     assert response.json() == {'detail': 'Could not validate credentials'}
+
+
+# Delete vai testar o get_current_user
+# como payload foi errado, vai dar erro pq nao tem sub (subject)
+def test_wrong_payload_get_current_user(client, user):
+    data = {'wrong_key': user.email}
+    token = create_access_token(data)
+
+    response = client.delete(
+        f'users/{user.id}', headers={'Authorization': f'Bearer {token}'}
+    )
+
+    assert response.status_code == HTTPStatus.UNAUTHORIZED
+    assert response.json() == {'detail': 'Could not validate credentials'}
